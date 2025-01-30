@@ -13,9 +13,9 @@ type Routr struct {
 }
 
 func (r *Routr) wrap(handler http.HandlerFunc) http.Handler  {
-	var final http.Handler
+	var final http.Handler = handler
 	for i := len(r.mw)-1; i >= 0; i-- {
-		final = r.mw[i](handler)
+		final = r.mw[i](final)
 	}
 	return final
 }
